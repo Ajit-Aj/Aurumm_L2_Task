@@ -31,7 +31,6 @@ exports.createProduct = async (req, res) => {
 
         res.status(201).json(product);
     } catch (err) {
-        console.error('[CREATE PRODUCT ERROR]', err);
         res.status(500).json({ message: 'Failed to create product' });
     }
 };
@@ -71,7 +70,6 @@ exports.getProducts = async (req, res) => {
             totalPages: Math.ceil(total / limit),
         });
     } catch (err) {
-        console.error('[GET PRODUCTS ERROR]', err);
         res.status(500).json({ message: 'Failed to fetch products' });
     }
 };
@@ -79,23 +77,18 @@ exports.getProducts = async (req, res) => {
 
 
 exports.updateProduct = async (req, res) => {
-    console.log('[UPDATE PRODUCT] Request received');
 
     const productId = req.params.id;
     const updatedData = req.body;
 
-    console.log(`[UPDATE PRODUCT] Product ID: ${productId}`);
-    console.log('[UPDATE PRODUCT] Updated Data:', updatedData);
 
     try {
         const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, { new: true });
 
         if (!updatedProduct) {
-            console.warn('[UPDATE PRODUCT] Product not found');
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        console.log('[UPDATE PRODUCT] Successfully updated product:', updatedProduct);
         res.json(updatedProduct);
     } catch (err) {
         console.error('[UPDATE PRODUCT ERROR]', err);

@@ -5,21 +5,18 @@ const User = require('../models/User');
 
 // Register
 router.post('/register', async (req, res) => {
-    console.log('[REGISTER] Request received:', req.body);
 
     const { name, email, password, role = 'user' } = req.body;
 
     try {
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            console.warn('[REGISTER] Email already exists:', email);
             return res.status(400).json({ message: 'User already exists' });
         }
 
         const newUser = new User({ name, email, password, role });
         await newUser.save();
 
-        console.log('[REGISTER] User registered successfully:', newUser._id, 'Role:', newUser.role);
         res.status(201).json({ message: 'User registered successfully' });
     } catch (err) {
         console.error('[REGISTER] Error during registration:', err.message);
@@ -30,31 +27,25 @@ router.post('/register', async (req, res) => {
 
 // Login
 router.post('/login', async (req, res) => {
-    console.log('[LOGIN] Incoming login request');
     const { email, password } = req.body;
-    console.log(`[LOGIN] Payload received - Email: ${email}`);
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            console.warn('[LOGIN] No user found with email:', email);
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
         const isPasswordValid = await user.comparePassword(password);
 
         if (!isPasswordValid) {
-            console.warn('[LOGIN] Password mismatch for email:', email);
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Add role to the payload
         const token = jwt.sign(
             { id: user._id, role: user.role },
             'secretkey',
             { expiresIn: '1d' }
         );
 
-        console.log('[LOGIN] Login successful for user ID:', user._id);
 
         res.json({ token });
     } catch (err) {
