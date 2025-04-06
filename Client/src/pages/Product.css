@@ -1,0 +1,8 @@
+.card-hover-gold {
+    transition: box-shadow 0.3s ease-in-out;
+    /* cursor: pointer; */
+}
+
+.card-hover-gold:hover {
+    box-shadow: 0 0 15px 4px rgba(215, 181, 109, 0.8);
+}

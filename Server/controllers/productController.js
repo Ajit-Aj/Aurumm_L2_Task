@@ -12,7 +12,6 @@ exports.createProduct = async (req, res) => {
             return res.status(400).json({ message: 'All fields including image are required.' });
         }
 
-        // Read the image as buffer
         const imageBuffer = fs.readFileSync(path.join(__dirname, '../uploads/', file.filename));
         const imageType = file.mimetype;
 
@@ -24,7 +23,7 @@ exports.createProduct = async (req, res) => {
             category,
             manufactureDate,
             image: file.filename,
-            imageBuffer, 
+            imageBuffer,
             imageType
         });
 
@@ -38,15 +37,46 @@ exports.createProduct = async (req, res) => {
 };
 
 
+
 exports.getProducts = async (req, res) => {
     try {
-        const products = await Product.find();
-        res.json(products);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const search = req.query.search || '';
+        const sortOrder = req.query.sortOrder === 'asc' ? 1 : -1;
+
+        const allowedSortFields = ['name', 'category', 'price', 'createdAt'];
+        const sortField = allowedSortFields.includes(req.query.sortField) ? req.query.sortField : 'createdAt';
+
+        const query = search
+            ? {
+                $or: [
+                    { name: { $regex: search, $options: 'i' } },
+                    { category: { $regex: search, $options: 'i' } },
+                ]
+            }
+            : {};
+
+        const total = await Product.countDocuments(query);
+
+        const products = await Product.find(query)
+            .sort({ [sortField]: sortOrder })
+            .skip((page - 1) * limit)
+            .limit(limit);
+
+        res.json({
+            products,
+            total,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+        });
     } catch (err) {
         console.error('[GET PRODUCTS ERROR]', err);
         res.status(500).json({ message: 'Failed to fetch products' });
     }
 };
+
+
 
 exports.updateProduct = async (req, res) => {
     console.log('[UPDATE PRODUCT] Request received');

@@ -5,7 +5,15 @@ import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-hot-toast';
 import { FiLogOut } from 'react-icons/fi';
 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 const AppLayout = () => {
+
+    useEffect(() => {
+        AOS.init({ duration: 1000, once: true });
+
+    }, []);
     const { user, setUser, logout } = useAuth();
     const [loading, setLoading] = useState(true);
 
@@ -32,15 +40,44 @@ const AppLayout = () => {
 
 
     const navbarStyle = {
-        backgroundColor: '#d7b56d',
+        backgroundColor: '#343a40',
         padding: '15px'
     };
 
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style={navbarStyle}>
+                {/* <nav
+                className="navbar navbar-expand-lg navbar-dark shadow-sm"
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    zIndex: 1030,
+                    backgroundColor: '#343a40',
+                    // marginBottom: "1%",
+                }}
+            > */}
                 <div className="container">
-                    <Link className="navbar-brand fw-bold" to="/">Aurumm</Link>
+                    <Link
+                        to="/"
+                        className="navbar-brand fw-bold"
+                        style={{
+                            color: "#d7b56d",
+                            transition: "text-shadow 0.3s ease-in-out"
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.textShadow = "1px 1px 2px #b1975b, 0 0 8px #ffd700";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.textShadow = "none";
+                        }}
+                    >
+                        Aurumm
+                    </Link>
+
+
                     <button
                         className="navbar-toggler"
                         type="button"

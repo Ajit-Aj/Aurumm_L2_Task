@@ -112,6 +112,7 @@ import EditProduct from '../pages/EditProduct';
 import PrivateRoute from './PrivateRoutes';
 import Register from '../pages/Register';
 
+
 const router = createBrowserRouter([
   {
     path: '/',
