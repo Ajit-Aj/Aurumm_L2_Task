@@ -3,6 +3,7 @@ import axiosInstance from '../api/axiosInstance';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'
+import "./Product.css"
 
 const Login = () => {
     const navigate = useNavigate();
@@ -64,30 +65,28 @@ const Login = () => {
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card p-4 shadow-sm">
+                <div className="col-md-6 box-shadow-gold">
+                    <div className=" p-4 bg-white">
                         <h3 className="mb-4 text-center">Login</h3>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
-                                <label>Email</label>
                                 <input
                                     type="email"
                                     className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                                     value={email}
                                     onChange={handleEmailChange}
-                                    placeholder="Enter email"
+                                    placeholder="Email addresss"
                                 />
                                 {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                             </div>
 
                             <div className="mb-3">
-                                <label>Password</label>
                                 <input
                                     type="password"
                                     className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                                     value={password}
                                     onChange={handlePasswordChange}
-                                    placeholder="Enter password"
+                                    placeholder="Password"
                                 />
                                 {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                             </div>

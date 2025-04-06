@@ -1,8 +1,14 @@
 .card-hover-gold {
     transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0 0 15px 4px rgba(236, 236, 235, 0.8);
     /* cursor: pointer; */
+    border: 1px solid rgba(224, 224, 223, 0.8);
 }
 
 .card-hover-gold:hover {
     box-shadow: 0 0 15px 4px rgba(215, 181, 109, 0.8);
+}
+
+.box-shadow-gold {
+    box-shadow: 0 0 15px 4px rgba(211, 211, 209, 0.8);
 }

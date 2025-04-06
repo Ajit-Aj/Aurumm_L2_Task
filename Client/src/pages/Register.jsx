@@ -63,25 +63,23 @@ const Register = () => {
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card p-4 shadow-sm">
+        <div className="col-md-6 box-shadow-gold">
+          <div className=" p-4 bg-white">
             <h3 className="mb-4 text-center">Register</h3>
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label>Name</label>
                 <input
                   name="name"
                   type="text"
                   className={`form-control ${errors.name ? 'is-invalid' : ''}`}
                   value={form.name}
                   onChange={handleChange}
-                  placeholder="Your name"
+                  placeholder="Name"
                 />
                 {errors.name && <div className="invalid-feedback">{errors.name}</div>}
               </div>
 
               <div className="mb-3">
-                <label>Email</label>
                 <input
                   name="email"
                   type="email"
@@ -94,7 +92,6 @@ const Register = () => {
               </div>
 
               <div className="mb-3">
-                <label>Password</label>
                 <input
                   name="password"
                   type="password"
