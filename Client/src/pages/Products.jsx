@@ -180,8 +180,6 @@ const Products = () => {
                                         data-aos="fade-up"
                                         data-aos-delay={`${index * 100}`}
                                     >
-                                        {/* <div className="card h-100 shadow-sm"> */}
-
                                         <div className="card h-100 shadow-sm card-hover-gold" >
                                             <div
                                                 style={{
