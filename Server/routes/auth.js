@@ -54,8 +54,6 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
-
 // router.post('/logout', auth, async (req, res) => {
 //     const token = req.headers.authorization.split(' ')[1];
 //     const decoded = jwt.decode(token);
